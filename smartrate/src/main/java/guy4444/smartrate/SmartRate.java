@@ -29,6 +29,10 @@ public class SmartRate {
         void userRating(int rating);
     }
 
+    public interface CallBack_WasShowed {
+        void wasShowed();
+    }
+
     private static final long DONT_ASK_AGAIN_VALUE = -1;
     private static final String SP_LIBRARY_NAME = "SP_RATE_LIBRARY";
     private static final String SP_KEY_LAST_ASK_TIME = "SP_KEY_LAST_ASK_TIME";
@@ -64,7 +68,8 @@ public class SmartRate {
                 , ""
                 , mainColor
                 , openStoreFromXStars
-                , callBack_userRating);
+                , callBack_userRating
+                , null);
     }
 
     public static void Rate(
@@ -107,6 +112,7 @@ public class SmartRate {
             , final int mainColor
             , final int openStoreFromXStars
             , CallBack_UserRating callBack_userRating
+            , CallBack_WasShowed callBack_wasShowed
     ) {
         Rate(activity
                 , _title
@@ -122,7 +128,8 @@ public class SmartRate {
                 , openStoreFromXStars
                 , -1
                 , -1
-                , callBack_userRating);
+                , callBack_userRating
+                , callBack_wasShowed);
     }
 
     public static void Rate(
@@ -155,6 +162,7 @@ public class SmartRate {
                 , openStoreFromXStars
                 , _hoursBetweenCalls
                 , _hoursDelayToActivate
+                , null
                 , null);
     }
 
@@ -174,6 +182,7 @@ public class SmartRate {
             , final int _hoursBetweenCalls
             , final int _hoursDelayToActivate
             , final CallBack_UserRating callBack_userRating
+            , final CallBack_WasShowed wasShowed
     ) {
 
         final String title = (_title != null && !_title.equals("")) ? _title : DEFAULT_TEXT_TITLE;
@@ -392,6 +401,8 @@ public class SmartRate {
         }
 
         alertDialog.show();
+
+        if (wasShowed != null) wasShowed.wasShowed();
     }
 
     private static void launchMarket(Activity activity) {
