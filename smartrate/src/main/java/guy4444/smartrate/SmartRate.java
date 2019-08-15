@@ -301,6 +301,7 @@ public class SmartRate {
         alert_BTN_star_5.setOnClickListener(starsClickListener);
 
 
+
         alert_LBL_title.setText(title);
         alert_LBL_content.setText(content);
 
@@ -399,6 +400,8 @@ public class SmartRate {
             alert_BTN_later.setText(cancel_text);
             alert_BTN_stop.setVisibility(View.GONE);
         }
+
+        alert_BTN_star_5.performClick();
 
         alertDialog.show();
 
