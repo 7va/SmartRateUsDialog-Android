@@ -27,6 +27,8 @@ public class SmartRate {
 
     public interface CallBack_UserRating {
         void userRating(int rating);
+
+        void userLaunchMarket(boolean success);
     }
 
     public interface CallBack_WasShowed {
@@ -301,7 +303,6 @@ public class SmartRate {
         alert_BTN_star_5.setOnClickListener(starsClickListener);
 
 
-
         alert_LBL_title.setText(title);
         alert_LBL_content.setText(content);
 
@@ -323,7 +324,9 @@ public class SmartRate {
 
 
                         if (selectedStar >= _openStoreFrom_Stars) {
-                            launchMarket(activity);
+                            launchMarket(activity, callBack_userRating);
+
+
                         } else {
                             Toast.makeText(activity, thanksForFeedback, Toast.LENGTH_SHORT).show();
                         }
@@ -408,13 +411,20 @@ public class SmartRate {
         if (wasShowed != null) wasShowed.wasShowed();
     }
 
-    private static void launchMarket(Activity activity) {
+    private static void launchMarket(Activity activity, CallBack_UserRating callBack_userRating) {
         Uri uri = Uri.parse("market://details?id=" + activity.getPackageName());
         Intent myAppLinkToMarket = new Intent(Intent.ACTION_VIEW, uri);
         try {
             activity.startActivity(myAppLinkToMarket);
+
+            if (callBack_userRating != null)
+                callBack_userRating.userLaunchMarket(true);
+
         } catch (ActivityNotFoundException e) {
             Toast.makeText(activity, " unable to find google play app", Toast.LENGTH_LONG).show();
+
+            if (callBack_userRating != null)
+                callBack_userRating.userLaunchMarket(false);
         }
     }
 

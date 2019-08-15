@@ -69,6 +69,11 @@ public class MainActivity extends AppCompatActivity {
                                 Toast.makeText(MainActivity.this, "Rating: " + rating + " Stars", Toast.LENGTH_LONG).show();
                                 //saveUserRating(rating);
                             }
+
+                            @Override
+                            public void userLaunchMarket(boolean success) {
+                                Toast.makeText(MainActivity.this, "Market", Toast.LENGTH_LONG).show();
+                            }
                         }
                 );
 
@@ -99,6 +104,11 @@ public class MainActivity extends AppCompatActivity {
                             public void userRating(int rating) {
                                 // Do something
                                 // maybe from now disable this button
+                            }
+
+                            @Override
+                            public void userLaunchMarket(boolean success) {
+                                Toast.makeText(MainActivity.this, "Market", Toast.LENGTH_LONG).show();
                             }
                         },
                         new SmartRate.CallBack_WasShowed(){
